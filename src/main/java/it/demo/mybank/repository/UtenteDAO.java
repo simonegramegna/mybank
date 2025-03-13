@@ -6,7 +6,8 @@ import it.demo.mybank.entity.Utente;
 
 public interface UtenteDAO {
 	
-	public void save(Utente u);
+	public Utente save(Utente u);
 	public Utente findById(int id);
+	public Utente findByMail(String mail);
 	public List<Utente> findAll();
 }

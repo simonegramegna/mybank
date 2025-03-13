@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
-import it.demo.mybank.config.AppConfig;
 import it.demo.mybank.dto.ContoCorrenteDTO;
 import it.demo.mybank.dto.MovimentoDTO;
 import it.demo.mybank.entity.ContoCorrente;
@@ -12,12 +11,6 @@ import it.demo.mybank.entity.Movimento;
 
 @Component
 public class Utility4Conto {
-
-    private final AppConfig appConfig;
-
-    Utility4Conto(AppConfig appConfig) {
-        this.appConfig = appConfig;
-    }
 
     public ContoCorrenteDTO daContoCorrenteAContoCorrenteDTO(ContoCorrente cc) {
 

@@ -7,6 +7,10 @@ import it.demo.mybank.dto.UtenteIdDTO;
 
 public interface UtenteService {
 
-    public void registraNuovoUtente(UtenteDTO dto);
+    public UtenteIdDTO registraNuovoUtente(UtenteDTO dto);
+
+
 	public List<UtenteIdDTO> leggiTuttiUtenti();
+
+
 }

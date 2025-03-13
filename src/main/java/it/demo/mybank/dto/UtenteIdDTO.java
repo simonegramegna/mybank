@@ -6,7 +6,7 @@ public class UtenteIdDTO extends UtenteDTO {
 
 	public UtenteIdDTO() {}
 	
-	public UtenteIdDTO(Integer idUtente,String nome, String cognome, String mail, String telefono) {
+	public UtenteIdDTO(Integer idUtente, String nome, String cognome, String mail, String telefono) {
 		super(nome, cognome, mail, telefono);
 		this.idUtente = idUtente;
 	}

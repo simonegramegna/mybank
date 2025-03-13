@@ -10,6 +10,7 @@ import it.demo.mybank.dto.UtenteDTO;
 import it.demo.mybank.dto.UtenteIdDTO;
 import it.demo.mybank.entity.Utente;
 import it.demo.mybank.repository.UtenteDAO;
+import it.demo.mybank.utility.Utility4Utente;
 
 @Service
 public class UtenteServiceImpl implements UtenteService{
@@ -17,16 +18,23 @@ public class UtenteServiceImpl implements UtenteService{
     @Autowired
     private UtenteDAO dao;
 
-    @Override
-    public void registraNuovoUtente(UtenteDTO dto) {
-       
-        Utente u = new Utente();
-        u.setNome(dto.getNome());
-		u.setCognome(dto.getCognome());
-		u.setMail(dto.getMail());
-		u.setTelefono(dto.getTelefono());
+    @Autowired
+    private Utility4Utente utility;
 
-		dao.save(u);
+    @Override
+    public UtenteIdDTO registraNuovoUtente(UtenteDTO dto) {
+
+        if(dto == null){
+            return null;
+        }
+
+        if(dao.findByMail(dto.getMail()) != null){
+            throw new RuntimeException("Esiste un utente con questa mail!");
+        }
+        
+        Utente utenteRegistrato = dao.save(utility.daUtenteDTOAUtente(dto));
+
+        return utility.daUtenteAUtenteIdDTO(utenteRegistrato);   
     }
 
     @Override
