@@ -1,5 +1,7 @@
 package it.demo.mybank.utility;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -8,6 +10,7 @@ import it.demo.mybank.dto.ContoCorrenteDTO;
 import it.demo.mybank.dto.MovimentoDTO;
 import it.demo.mybank.entity.ContoCorrente;
 import it.demo.mybank.entity.Movimento;
+import it.demo.mybank.entity.Utente;
 
 @Component
 public class Utility4Conto {
@@ -46,6 +49,21 @@ public class Utility4Conto {
 		dto.setIdOperatore(m.getOperatore().getIdUtente());
 		
 		return dto;
+	}
+
+	// controllo dato un cc e un id utente se lutente con l'id corrisponde ad un proprietario
+	public boolean proprietarioCC(ContoCorrente cc, Integer idUtente){
+		boolean result = false;
+		
+		for(Utente u : cc.getProprietari().values()){
+
+			if(idUtente == u.getIdUtente()){
+				result = true;
+				break;
+			}
+
+		}
+		return result;
 	}
 
 }

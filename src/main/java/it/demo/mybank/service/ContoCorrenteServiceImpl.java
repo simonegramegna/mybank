@@ -70,4 +70,31 @@ public class ContoCorrenteServiceImpl implements ContoCorrenteService {
         return utilityConto.daContoCorrenteAContoCorrenteDTO(cc);
     }
 
+    @Override
+    public ContoCorrenteDTO modificaSaldo(Integer numeroConto, Double newSaldo, Integer idUtenteOperatore) {
+
+        if(newSaldo < 0){
+            throw new RuntimeException("Il nuovo saldo non può essere negativo!");
+        }
+
+        ContoCorrente cc = daoContoCorrente.findById(numeroConto);
+
+        if(cc == null){
+            throw new RuntimeException("Il conto corrente non esiste nel db!");
+        }
+
+        if(utilityConto.proprietarioCC(cc, idUtenteOperatore) == false){
+            throw new RuntimeException("Propreitario e id utente non coincidono");
+        }
+
+        cc.setSaldo(newSaldo);
+
+        int n = ContoCorrenteDAOImpl.getNumeroMovimento();
+        Movimento movimento = new Movimento(n, TipoMovimento.VERSAMENTO, newSaldo, LocalDate.now(), daoUtente.findById(idUtenteOperatore));
+        cc.addMovimento(movimento);
+        daoContoCorrente.save(cc);
+
+        return utilityConto.daContoCorrenteAContoCorrenteDTO(cc);
+    }
+
 }

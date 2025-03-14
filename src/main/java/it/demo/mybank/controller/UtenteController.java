@@ -21,10 +21,10 @@ public class UtenteController {
     @Autowired
     private UtenteService service;
 
-    @PostMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public void registraUtente(@RequestBody UtenteDTO dto) {
+    @PostMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE, produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+	public UtenteDTO registraUtente(@RequestBody UtenteDTO dto) {
 		System.out.println("invocato il metodo registraUtente di UserController");
-		service.registraNuovoUtente(dto);
+		return service.registraNuovoUtente(dto);
 	}
 	
 	@GetMapping(path = "/getAll")
