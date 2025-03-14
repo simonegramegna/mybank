@@ -40,4 +40,10 @@ public class ContoCorrenteDAOImpl implements ContoCorrenteDAO{
         return new ArrayList<>(conti.values());
     }
 
+
+    @Override
+    public void removeById(int numero) {
+        conti.remove(numero);
+    }
+
 }

@@ -8,4 +8,8 @@ public interface ContoCorrenteService {
     public ContoCorrenteDTO apriConto(DatiAperturaContoDTO dto);
 
     public ContoCorrenteDTO modificaSaldo(Integer numeroConto, Double newSaldo, Integer idUtenteOperatore);
+
+    public ContoCorrenteDTO leggiConto(Integer numeroConto);
+
+    public void cancellaConto(Integer numeroConto);
 }

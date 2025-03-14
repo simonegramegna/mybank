@@ -2,6 +2,8 @@ package it.demo.mybank.service;
 
 import java.time.LocalDate;
 
+import javax.management.RuntimeErrorException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -97,4 +99,34 @@ public class ContoCorrenteServiceImpl implements ContoCorrenteService {
         return utilityConto.daContoCorrenteAContoCorrenteDTO(cc);
     }
 
+    @Override
+    public ContoCorrenteDTO leggiConto(Integer numeroConto) {
+
+        ContoCorrente cc = daoContoCorrente.findById(numeroConto);
+        
+        if(cc == null){
+            throw new RuntimeException("Il conto non esiste");
+        }
+        
+        return utilityConto.daContoCorrenteAContoCorrenteDTO(cc);
+    }
+
+    @Override
+    public void cancellaConto(Integer numeroConto) {
+        
+        ContoCorrente contoCancellato = daoContoCorrente.findById(numeroConto);
+
+        if(contoCancellato == null){
+            throw new RuntimeException("Il conto non esiste!");
+        }
+
+        if(contoCancellato.getSaldo() != 0){
+            throw new RuntimeException("Il saldo deve essere zero!");
+        }
+
+        contoCancellato.getMovimenti().clear();
+        contoCancellato.getProprietari().clear();
+        
+        daoContoCorrente.removeById(numeroConto);
+    }
 }

@@ -9,4 +9,5 @@ public interface ContoCorrenteDAO {
     public void save(ContoCorrente cc);
 	public ContoCorrente findById(int numero);
 	public List<ContoCorrente> findAll();
+	public void removeById(int numero);
 }
