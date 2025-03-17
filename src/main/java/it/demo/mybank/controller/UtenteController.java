@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,10 +28,16 @@ public class UtenteController {
 		return service.registraNuovoUtente(dto);
 	}
 	
-	@GetMapping(path = "/getAll")
+	@GetMapping(path = "/getAll", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
 	public List<UtenteIdDTO> leggiTuttiUtenti() {
 		System.out.println("invocato il metodo leggiTuttiUtenti di UserController");
 		return service.leggiTuttiUtenti();
 	}
+
+	@GetMapping(path = "/getById/{id}")
+	public UtenteIdDTO getMethodName(@PathVariable Integer id) {
+		return service.leggiUtente(id);
+	}
+	
 
 }

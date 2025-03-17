@@ -1,13 +1,10 @@
 package it.demo.mybank.repository;
 
-import java.util.List;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import it.demo.mybank.entity.Utente;
 
-public interface UtenteDAO {
+public interface UtenteDAO extends JpaRepository<Utente, Integer> {
 	
-	public Utente save(Utente u);
-	public Utente findById(int id);
-	public Utente findByMail(String mail);
-	public List<Utente> findAll();
+
 }

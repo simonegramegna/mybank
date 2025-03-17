@@ -15,9 +15,10 @@ import it.demo.mybank.dto.ContoCorrenteDTO;
 import it.demo.mybank.dto.DatiAperturaContoDTO;
 import it.demo.mybank.service.ContoCorrenteService;
 
-@RestController
-@RequestMapping(path = "/conti")
+//@RestController
+//@RequestMapping(path = "/conti")
 public class ContoCorrenteController {
+	/* 
 
     @Autowired
     private ContoCorrenteService service;
@@ -47,6 +48,6 @@ public class ContoCorrenteController {
 
 		service.cancellaConto(numeroConto);
 	}
-
+	*/
 
 }

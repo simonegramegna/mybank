@@ -1,6 +1,7 @@
 package it.demo.mybank.service;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 import javax.management.RuntimeErrorException;
 
@@ -18,7 +19,7 @@ import it.demo.mybank.repository.ContoCorrenteDAOImpl;
 import it.demo.mybank.repository.UtenteDAO;
 import it.demo.mybank.utility.Utility4Conto;
 
-@Service
+//@Service
 public class ContoCorrenteServiceImpl implements ContoCorrenteService {
 
     @Autowired
@@ -41,13 +42,13 @@ public class ContoCorrenteServiceImpl implements ContoCorrenteService {
             throw new RuntimeException("id proprietario mancante " + dto.getIdProprietario());
         }
 
-       Utente utenteProprietario = daoUtente.findById(dto.getIdProprietario());
+       Optional<Utente> utenteProprietario = daoUtente.findById(dto.getIdProprietario());
 
         if(utenteProprietario == null){
             throw new RuntimeException("utente proprietario mancante " + dto.getIdProprietario());
         }
 
-        Utente utenteCointestato = null;
+        Optional<Utente> utenteCointestato = null;
 
         if(dto.getIdCointestatario() != null){
             utenteCointestato = daoUtente.findById(dto.getIdCointestatario());
@@ -57,7 +58,7 @@ public class ContoCorrenteServiceImpl implements ContoCorrenteService {
 
         if(dto.getSaldo()>0) {
 			int n = ContoCorrenteDAOImpl.getNumeroMovimento();
-			Movimento m = new Movimento(n, TipoMovimento.VERSAMENTO, dto.getSaldo(),LocalDate.now(), utenteProprietario);
+			Movimento m = new Movimento();
 			cc.addMovimento(m);
 		}
 
@@ -92,7 +93,7 @@ public class ContoCorrenteServiceImpl implements ContoCorrenteService {
         cc.setSaldo(newSaldo);
 
         int n = ContoCorrenteDAOImpl.getNumeroMovimento();
-        Movimento movimento = new Movimento(n, TipoMovimento.VERSAMENTO, newSaldo, LocalDate.now(), daoUtente.findById(idUtenteOperatore));
+        Movimento movimento = new Movimento();
         cc.addMovimento(movimento);
         daoContoCorrente.save(cc);
 

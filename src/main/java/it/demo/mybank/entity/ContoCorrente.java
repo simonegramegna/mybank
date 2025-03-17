@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 public class ContoCorrente {
     
@@ -27,8 +28,8 @@ public class ContoCorrente {
 		this.dataApertura = dataApertura;
 	}
 
-	public void addProprietario(boolean b, Utente u) {
-			this.proprietari.put(b, u);
+	public void addProprietario(boolean b, Optional<Utente> utenteProprietario) {
+			this.proprietari.put(b, utenteProprietario);
 	}
 	
 	public void removeProprietario() {
@@ -85,4 +86,5 @@ public class ContoCorrente {
 		return "ContoCorrente [numero=" + numero + ", saldo=" + saldo + ", dataApertura=" + dataApertura
 				+ ", proprietari=" + proprietari + ", movimenti=" + movimenti + "]";
 	}
+
 }

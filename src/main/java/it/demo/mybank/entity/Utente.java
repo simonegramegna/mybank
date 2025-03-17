@@ -1,15 +1,25 @@
 package it.demo.mybank.entity;
 
-import java.util.Objects;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
+@Entity
+@Table(name="utente")
 public class Utente {
 
+	@Id
+	@Column(name="id")
     private int idUtente;
+
 	private String nome; 
 	private String cognome;
 	private String mail;
 	private String telefono;
 	
+	@Transient
 	private Indirizzo residenza;
 	
 	public Utente() {}
@@ -77,22 +87,4 @@ public class Utente {
 		return "Utente [idUtente=" + idUtente + ", nome=" + nome + ", cognome=" + cognome + ", mail=" + mail
 				+ ", telefono=" + telefono + ", residenza=" + residenza + "]";
 	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(idUtente);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Utente other = (Utente) obj;
-		return idUtente == other.idUtente;
-	}
-
 }
