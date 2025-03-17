@@ -28,6 +28,7 @@ public class ContoCorrenteServiceImpl implements ContoCorrenteService {
 
     @Override
     public ContoCorrenteDTO apriConto(DatiAperturaContoDTO dto) {
+        /* 
         
         if(dto.getSaldo() < 0){
             throw new RuntimeException("saldo negativo " + dto.getSaldo());
@@ -66,11 +67,14 @@ public class ContoCorrenteServiceImpl implements ContoCorrenteService {
         daoContoCorrente.save(cc);
 
         return utilityConto.daContoCorrenteAContoCorrenteDTO(cc);
+        */
+        return null;
     }
 
     @Override
     public ContoCorrenteDTO modificaSaldo(Integer numeroConto, Double newSaldo, Integer idUtenteOperatore) {
 
+        /* 
         if(newSaldo < 0){
             throw new RuntimeException("Il nuovo saldo non può essere negativo!");
         }
@@ -92,24 +96,29 @@ public class ContoCorrenteServiceImpl implements ContoCorrenteService {
         cc.addMovimento(movimento);
         daoContoCorrente.save(cc);
 
-        return utilityConto.daContoCorrenteAContoCorrenteDTO(cc);
+        return utilityConto.daContoCorrenteAContoCorrenteDTO(cc); */
+
+        return null;
     }
 
     @Override
     public ContoCorrenteDTO leggiConto(Integer numeroConto) {
-
+        
+        /* 
         ContoCorrente cc = daoContoCorrente.findById(numeroConto);
         
         if(cc == null){
             throw new RuntimeException("Il conto non esiste");
         }
         
-        return utilityConto.daContoCorrenteAContoCorrenteDTO(cc);
+        return utilityConto.daContoCorrenteAContoCorrenteDTO(cc); */
+        return null;
     }
 
     @Override
     public void cancellaConto(Integer numeroConto) {
         
+        /* 
         ContoCorrente contoCancellato = daoContoCorrente.findById(numeroConto);
 
         if(contoCancellato == null){
@@ -123,6 +132,7 @@ public class ContoCorrenteServiceImpl implements ContoCorrenteService {
         contoCancellato.getMovimenti().clear();
         contoCancellato.getProprietari().clear();
         
-        daoContoCorrente.removeById(numeroConto);
+        daoContoCorrente.removeById(numeroConto); */
+
     }
 }

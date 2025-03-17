@@ -7,12 +7,23 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Transient;
+
+@Entity
 public class ContoCorrente {
     
+	@Id
     private int numero;
+
 	private double saldo;
-	private LocalDate dataApertura;	
+	private LocalDate dataApertura;
+	
+	@Transient
 	private Map<Boolean, Utente> proprietari = new HashMap<Boolean, Utente>();
+
+	@Transient
 	private List<Movimento> movimenti = new ArrayList<Movimento>();
 	
 	public ContoCorrente() {}
