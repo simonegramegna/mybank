@@ -3,19 +3,14 @@ package it.demo.mybank.service;
 import java.time.LocalDate;
 import java.util.Optional;
 
-import javax.management.RuntimeErrorException;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import it.demo.mybank.dto.ContoCorrenteDTO;
 import it.demo.mybank.dto.DatiAperturaContoDTO;
 import it.demo.mybank.entity.ContoCorrente;
 import it.demo.mybank.entity.Movimento;
-import it.demo.mybank.entity.TipoMovimento;
 import it.demo.mybank.entity.Utente;
 import it.demo.mybank.repository.ContoCorrenteDAO;
-import it.demo.mybank.repository.ContoCorrenteDAOImpl;
 import it.demo.mybank.repository.UtenteDAO;
 import it.demo.mybank.utility.Utility4Conto;
 
@@ -57,7 +52,7 @@ public class ContoCorrenteServiceImpl implements ContoCorrenteService {
         ContoCorrente cc = new ContoCorrente(dto.getSaldo(), LocalDate.now());
 
         if(dto.getSaldo()>0) {
-			int n = ContoCorrenteDAOImpl.getNumeroMovimento();
+			//int n = ContoCorrenteDAOImpl.getNumeroMovimento();
 			Movimento m = new Movimento();
 			cc.addMovimento(m);
 		}
@@ -92,7 +87,7 @@ public class ContoCorrenteServiceImpl implements ContoCorrenteService {
 
         cc.setSaldo(newSaldo);
 
-        int n = ContoCorrenteDAOImpl.getNumeroMovimento();
+        //int n = ContoCorrenteDAOImpl.getNumeroMovimento();
         Movimento movimento = new Movimento();
         cc.addMovimento(movimento);
         daoContoCorrente.save(cc);

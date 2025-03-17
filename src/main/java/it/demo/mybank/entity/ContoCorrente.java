@@ -29,7 +29,7 @@ public class ContoCorrente {
 	}
 
 	public void addProprietario(boolean b, Optional<Utente> utenteProprietario) {
-			this.proprietari.put(b, utenteProprietario);
+		//this.proprietari.put(b, utenteProprietario);
 	}
 	
 	public void removeProprietario() {
