@@ -1,10 +1,12 @@
 package it.demo.mybank.entity;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.persistence.Transient;
 
 @Entity
 @Table(name="utente")
@@ -12,6 +14,7 @@ public class Utente {
 
 	@Id
 	@Column(name="id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idUtente;
 
 	private String nome; 
@@ -19,7 +22,7 @@ public class Utente {
 	private String mail;
 	private String telefono;
 	
-	@Transient
+	@Embedded
 	private Indirizzo residenza;
 	
 	public Utente() {}

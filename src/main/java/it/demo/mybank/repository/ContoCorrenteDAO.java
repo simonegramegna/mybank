@@ -1,13 +1,10 @@
 package it.demo.mybank.repository;
 
-import java.util.List;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import it.demo.mybank.entity.ContoCorrente;
 
-public interface ContoCorrenteDAO {
+public interface ContoCorrenteDAO extends JpaRepository<ContoCorrente, Integer> {
     
-    public void save(ContoCorrente cc);
-	public ContoCorrente findById(int numero);
-	public List<ContoCorrente> findAll();
-	public void removeById(int numero);
+    
 }

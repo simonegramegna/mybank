@@ -1,15 +1,11 @@
 package it.demo.mybank.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.Embeddable;
 
-@Entity
-@Table(name = "indirizzo")
+@Embeddable
 public class Indirizzo {
 
-	@Id
-	private int idIndirizzo;
+	private Integer idIndirizzo;
 
 	private String via;
 	private String cap;
