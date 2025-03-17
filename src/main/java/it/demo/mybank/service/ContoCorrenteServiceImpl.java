@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import it.demo.mybank.dto.ContoCorrenteDTO;
 import it.demo.mybank.dto.DatiAperturaContoDTO;
@@ -14,7 +15,7 @@ import it.demo.mybank.repository.ContoCorrenteDAO;
 import it.demo.mybank.repository.UtenteDAO;
 import it.demo.mybank.utility.Utility4Conto;
 
-//@Service
+@Service
 public class ContoCorrenteServiceImpl implements ContoCorrenteService {
 
     @Autowired

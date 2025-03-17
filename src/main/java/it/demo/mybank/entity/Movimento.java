@@ -2,12 +2,21 @@ package it.demo.mybank.entity;
 
 import java.time.LocalDate;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Transient;
+
+@Entity
 public class Movimento {
-    
+
+    @Id
     private int idMovimento;
+
 	private TipoMovimento tipo;
 	private double importo;
 	private LocalDate dataOperazione;
+
+	@Transient
 	private Utente operatore;
 	
 	public Movimento() {}
