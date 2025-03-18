@@ -1,9 +1,6 @@
 package it.demo.mybank.dto;
 
 public class IndirizzoDTO {
-
-    private int idIndirizzo;
-
     private String via;
     private String cap;
     private String citta;
@@ -12,20 +9,11 @@ public class IndirizzoDTO {
     public IndirizzoDTO() {
     }
 
-    public IndirizzoDTO(int idIndirizzo, String via, String cap, String citta, String provincia) {
-        this.idIndirizzo = idIndirizzo;
+    public IndirizzoDTO(String via, String cap, String citta, String provincia) {
         this.via = via;
         this.cap = cap;
         this.citta = citta;
         this.provincia = provincia;
-    }
-
-    public int getIdIndirizzo() {
-        return idIndirizzo;
-    }
-
-    public void setIdIndirizzo(int idIndirizzo) {
-        this.idIndirizzo = idIndirizzo;
     }
 
     public String getVia() {
@@ -62,7 +50,6 @@ public class IndirizzoDTO {
 
     @Override
     public String toString() {
-        return "IndirizzoDTO [idIndirizzo=" + idIndirizzo + ", via=" + via + ", cap=" + cap + ", citta=" + citta
-                + ", provincia=" + provincia + "]";
+        return "IndirizzoDTO [via=" + via + ", cap=" + cap + ", citta=" + citta + ", provincia=" + provincia + "]";
     }
 }

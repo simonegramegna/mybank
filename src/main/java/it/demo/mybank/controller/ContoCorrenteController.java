@@ -15,39 +15,39 @@ import it.demo.mybank.dto.ContoCorrenteDTO;
 import it.demo.mybank.dto.DatiAperturaContoDTO;
 import it.demo.mybank.service.ContoCorrenteService;
 
-//@RestController
-//@RequestMapping(path = "/conti")
+@RestController
+@RequestMapping(path = "/conti")
 public class ContoCorrenteController {
-	/* 
-
+	
     @Autowired
     private ContoCorrenteService service;
 
-    @PostMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE, 
+    @PostMapping(path = "/registra", consumes = MediaType.APPLICATION_JSON_VALUE, 
 						  produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
 	public ContoCorrenteDTO apriConto(@RequestBody DatiAperturaContoDTO dto) {
         
-		System.out.println(dto);
 		return service.apriConto(dto);
 	}
 
+	
 	@PatchMapping(path = "/{numeroConto}/saldo")
 	public ContoCorrenteDTO modificaSaldoConto(@PathVariable Integer numeroConto, Double newSaldo, Integer idUtenteOperatore){
 		
 		return service.modificaSaldo(numeroConto, newSaldo, idUtenteOperatore);
 	}
 
+	
 	@GetMapping(path = "/{numeroConto}/lettura")
 	public ContoCorrenteDTO leggiConto(@PathVariable Integer numeroConto){
 
 		return service.leggiConto(numeroConto);
 	}
 
+	
 	@DeleteMapping(path = "/{numeroConto}/elimina")
 	public void eliminaConto(@PathVariable Integer numeroConto){
 
 		service.cancellaConto(numeroConto);
 	}
-	*/
 
 }

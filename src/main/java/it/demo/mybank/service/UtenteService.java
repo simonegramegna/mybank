@@ -9,10 +9,7 @@ public interface UtenteService {
 
     public UtenteIdDTO registraNuovoUtente(UtenteDTO dto);
 
-
 	public List<UtenteIdDTO> leggiTuttiUtenti();
 
     public UtenteIdDTO leggiUtente(int id);
-
-
 }

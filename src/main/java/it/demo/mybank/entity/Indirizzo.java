@@ -1,10 +1,19 @@
 package it.demo.mybank.entity;
 
-import jakarta.persistence.Embeddable;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
-@Embeddable
+@Entity
+@Table(name = "indirizzo")
 public class Indirizzo {
 
+	@Id
+	@Column(name = "id_indirizzo")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer idIndirizzo;
 
 	private String via;

@@ -6,5 +6,4 @@ import it.demo.mybank.entity.Utente;
 
 public interface UtenteDAO extends JpaRepository<Utente, Integer> {
 	
-
 }

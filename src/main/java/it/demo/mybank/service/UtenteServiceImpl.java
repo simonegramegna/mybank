@@ -10,8 +10,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import it.demo.mybank.dto.UtenteDTO;
 import it.demo.mybank.dto.UtenteIdDTO;
+import it.demo.mybank.entity.Indirizzo;
 import it.demo.mybank.entity.Utente;
 import it.demo.mybank.repository.UtenteDAO;
+import it.demo.mybank.utility.Utility4Indirizzo;
 import it.demo.mybank.utility.Utility4Utente;
 
 @Service
@@ -22,7 +24,10 @@ public class UtenteServiceImpl implements UtenteService{
     private UtenteDAO dao;
 
     @Autowired
-    private Utility4Utente utility;
+    private Utility4Utente utilityUtente;
+
+    @Autowired
+    private Utility4Indirizzo utilityIndirizzo;
 
     @Override
     public UtenteIdDTO registraNuovoUtente(UtenteDTO dto) {
@@ -36,9 +41,9 @@ public class UtenteServiceImpl implements UtenteService{
             throw new RuntimeException("Esiste un utente con questa mail!");
         }*/
         
-        Utente utenteRegistrato = dao.save(utility.daUtenteDTOAUtente(dto));
+        Utente utenteRegistrato = dao.save(utilityUtente.daUtenteDTOAUtente(dto));
 
-        return utility.daUtenteAUtenteIdDTO(utenteRegistrato);   
+        return utilityUtente.daUtenteAUtenteIdDTO(utenteRegistrato);   
     }
 
     @Override
@@ -48,7 +53,11 @@ public class UtenteServiceImpl implements UtenteService{
         List<UtenteIdDTO> lDto = new ArrayList<>();
 
         for (Utente u : listaUtenti) {
-            lDto.add(new UtenteIdDTO(u.getIdUtente(), u.getNome(), u.getCognome(), u.getMail(), u.getTelefono()));
+
+            Indirizzo indirizzo = u.getResidenza();
+            UtenteIdDTO utente = new UtenteIdDTO(u.getIdUtente(), u.getNome(), u.getCognome(), u.getMail(), u.getTelefono(), utilityIndirizzo.daIndirizzoAIndirizzoDTO(indirizzo));
+
+            lDto.add(utente);
         }
         
         return lDto;
@@ -62,7 +71,7 @@ public class UtenteServiceImpl implements UtenteService{
 
         if(optional.isPresent()){
             Utente utente = optional.get();
-            utenteIdDTO = utility.daUtenteAUtenteIdDTO(utente);
+            utenteIdDTO = utilityUtente.daUtenteAUtenteIdDTO(utente);
         }
         return utenteIdDTO;
     }

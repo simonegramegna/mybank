@@ -6,17 +6,18 @@ public class UtenteDTO {
 	private String cognome;
 	private String mail;
 	private String telefono;
+
+	private IndirizzoDTO indirizzo;
 	
 	public UtenteDTO() {}
 
-	public UtenteDTO(String nome, String cognome, String mail, String telefono) {
+	public UtenteDTO(String nome, String cognome, String mail, String telefono, IndirizzoDTO indirizzo) {
 		this.nome = nome;
 		this.cognome = cognome;
 		this.mail = mail;
 		this.telefono = telefono;
+		this.indirizzo = indirizzo;
 	}
-
-
 
 	public String getMail() {
 		return mail;
@@ -50,9 +51,16 @@ public class UtenteDTO {
 		this.cognome = cognome;
 	}
 
+	public IndirizzoDTO getIndirizzo() {
+		return indirizzo;
+	}
+
+	public void setIndirizzo(IndirizzoDTO indirizzo) {
+		this.indirizzo = indirizzo;
+	}
+
 	@Override
 	public String toString() {
 		return "UserDTO [nome=" + nome + ", cognome=" + cognome + ", mail=" + mail + ", telefono=" + telefono + "]";
 	}
-
 }

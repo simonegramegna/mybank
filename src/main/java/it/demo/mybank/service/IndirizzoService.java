@@ -1,11 +1,13 @@
 package it.demo.mybank.service;
 
 import it.demo.mybank.dto.IndirizzoDTO;
+import it.demo.mybank.dto.IndirizzoIdDTO;
 
 public interface IndirizzoService {
 
-    public IndirizzoDTO leggiIndirizzo(int id);
+    public IndirizzoIdDTO leggiIndirizzo(Integer id);
 
-    public void registraIndirizzo(IndirizzoDTO indirizzo);
+    public IndirizzoIdDTO registraIndirizzo(IndirizzoDTO indirizzo);
 
+    public void cancellaIndirizzo(Integer id);
 }

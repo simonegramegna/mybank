@@ -1,11 +1,12 @@
 package it.demo.mybank.entity;
 
 import jakarta.persistence.Column;
-import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -13,7 +14,7 @@ import jakarta.persistence.Table;
 public class Utente {
 
 	@Id
-	@Column(name="id")
+	@Column(name="id_utente")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idUtente;
 
@@ -22,17 +23,19 @@ public class Utente {
 	private String mail;
 	private String telefono;
 	
-	@Embedded
+	@OneToOne
+	@JoinColumn(name="indirizzo_utente")
 	private Indirizzo residenza;
 	
 	public Utente() {}
 			
-	public Utente(int idUtente, String nome, String cognome, String mail, String telefono) {
+	public Utente(int idUtente, String nome, String cognome, String mail, String telefono, Indirizzo indirizzo) {
 		this.idUtente = idUtente;
 		this.nome = nome;
 		this.cognome = cognome;
 		this.mail = mail;
 		this.telefono = telefono;
+		this.residenza = indirizzo;
 	}
 	
 	public Indirizzo getResidenza() {

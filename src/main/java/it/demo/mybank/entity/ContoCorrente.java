@@ -5,9 +5,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
@@ -17,6 +19,8 @@ import jakarta.persistence.ManyToMany;
 public class ContoCorrente {
     
 	@Id
+	@Column(name="id_conto_corrente")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
     private int numero;
 
 	private double saldo;
@@ -43,8 +47,8 @@ public class ContoCorrente {
 		this.dataApertura = dataApertura;
 	}
 
-	public void addProprietario(boolean b, Optional<Utente> utenteProprietario) {
-		//this.proprietari.put(b, utenteProprietario);
+	public void addProprietario(boolean b, Utente utenteProprietario) {
+		this.proprietari.put(b, utenteProprietario);
 	}
 	
 	public void removeProprietario() {
