@@ -50,7 +50,13 @@ public class IndirizzoServiceImpl implements IndirizzoService{
 
     @Override
     public void cancellaIndirizzo(Integer id) {
-        
+
+        Optional<Indirizzo> optional = dao.findById(id);
+
+        if(optional.isEmpty()){ 
+            throw new RuntimeException("L'indirizzo non esiste!");
+        }
+        dao.deleteById(id);
     }
 
 }

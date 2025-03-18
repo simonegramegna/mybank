@@ -1,6 +1,7 @@
 package it.demo.mybank.service;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -134,12 +135,14 @@ public class ContoCorrenteServiceImpl implements ContoCorrenteService {
 
     @Override
     public void cancellaConto(Integer numeroConto) {
-        
-        ContoCorrente contoCancellato = daoContoCorrente.findById(numeroConto).get();
 
-        if(contoCancellato == null){
+        Optional<ContoCorrente> optional = daoContoCorrente.findById(numeroConto);
+
+        if(optional.isEmpty()){
             throw new RuntimeException("Il conto non esiste!");
         }
+
+        ContoCorrente contoCancellato = optional.get();
 
         if(contoCancellato.getSaldo() != 0){
             throw new RuntimeException("Il saldo deve essere zero!");

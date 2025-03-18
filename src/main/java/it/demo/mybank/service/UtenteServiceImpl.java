@@ -10,8 +10,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import it.demo.mybank.dto.UtenteDTO;
 import it.demo.mybank.dto.UtenteIdDTO;
+import it.demo.mybank.entity.ContoCorrente;
 import it.demo.mybank.entity.Indirizzo;
 import it.demo.mybank.entity.Utente;
+import it.demo.mybank.repository.ContoCorrenteDAO;
 import it.demo.mybank.repository.UtenteDAO;
 import it.demo.mybank.utility.Utility4Indirizzo;
 import it.demo.mybank.utility.Utility4Utente;
@@ -22,6 +24,9 @@ public class UtenteServiceImpl implements UtenteService{
 
     @Autowired
     private UtenteDAO dao;
+
+    @Autowired
+    private ContoCorrenteDAO daoCC;
 
     @Autowired
     private Utility4Utente utilityUtente;
@@ -76,4 +81,30 @@ public class UtenteServiceImpl implements UtenteService{
         return utenteIdDTO;
     }
 
+    @Override
+    public void eliminaUtente(Integer id) {
+
+        Optional<Utente> optional = dao.findById(id);
+        boolean check = false;
+
+        if(optional.isEmpty()){ 
+            throw new RuntimeException("L'utente non esiste");
+        }
+
+        List<ContoCorrente> conti = daoCC.findAll();
+
+        for(ContoCorrente c : conti){ 
+            if(c.getProprietari().containsValue(optional.orElse(null))){ 
+                check = true;
+                break;
+            }
+        }
+
+        if(check){ 
+            throw new RuntimeException(
+                    "Impossibile cancellare l'utente con ID " + id + " perché ha conti correnti associati.");
+        }
+
+        dao.deleteById(id);
+    }
 }

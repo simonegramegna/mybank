@@ -12,4 +12,6 @@ public interface UtenteService {
 	public List<UtenteIdDTO> leggiTuttiUtenti();
 
     public UtenteIdDTO leggiUtente(int id);
+
+    public void eliminaUtente(Integer id);
 }
