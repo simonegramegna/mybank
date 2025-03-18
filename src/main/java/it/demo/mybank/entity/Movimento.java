@@ -4,7 +4,8 @@ import java.time.LocalDate;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.persistence.Transient;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Movimento {
@@ -16,7 +17,8 @@ public class Movimento {
 	private double importo;
 	private LocalDate dataOperazione;
 
-	@Transient
+	@ManyToOne
+	@JoinColumn(name="operatore_id")
 	private Utente operatore;
 	
 	public Movimento() {}

@@ -9,7 +9,9 @@ import java.util.Optional;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.persistence.Transient;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 
 @Entity
 public class ContoCorrente {
@@ -20,10 +22,12 @@ public class ContoCorrente {
 	private double saldo;
 	private LocalDate dataApertura;
 	
-	@Transient
+	@ManyToMany
+	@JoinTable(name = "proprietari_conto", joinColumns = @JoinColumn(name="fk_conto"), inverseJoinColumns = @JoinColumn(name="fk_utente"))
 	private Map<Boolean, Utente> proprietari = new HashMap<Boolean, Utente>();
 
-	@Transient
+	@ManyToMany
+	@JoinTable(name = "movimenti_conto", joinColumns =  @JoinColumn(name="fk_conto"), inverseJoinColumns = @JoinColumn(name="fk_movimenti"))
 	private List<Movimento> movimenti = new ArrayList<Movimento>();
 	
 	public ContoCorrente() {}
