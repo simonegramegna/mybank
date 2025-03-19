@@ -10,7 +10,6 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="utente")
 public class Utente {
 
 	@Id

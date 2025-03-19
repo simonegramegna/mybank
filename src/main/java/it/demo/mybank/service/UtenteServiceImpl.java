@@ -41,10 +41,10 @@ public class UtenteServiceImpl implements UtenteService{
             return null;
         }
 
-        /* query custom
-        if(dao.findByMail(dto.getMail()) != null){
+        
+        if(dao.getUtenteMail(dto.getMail()).isEmpty() == false){
             throw new RuntimeException("Esiste un utente con questa mail!");
-        }*/
+        }
         
         Utente utenteRegistrato = dao.save(utilityUtente.daUtenteDTOAUtente(dto));
 
