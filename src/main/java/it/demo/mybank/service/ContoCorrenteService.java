@@ -12,4 +12,6 @@ public interface ContoCorrenteService {
     public ContoCorrenteDTO leggiConto(Integer numeroConto);
 
     public void cancellaConto(Integer numeroConto);
+
+    public String validitaConto(Integer numeroConto);
 }

@@ -20,6 +20,9 @@ import it.demo.mybank.utility.Utility4Conto;
 @Service
 public class ContoCorrenteServiceImpl implements ContoCorrenteService {
 
+    private static final double LIMITE_MINIMO = -5000;
+    private static final double MORA_PERCENTUALE = 0.05;
+
     @Autowired
     private MovimentoDAO movimentoDAO;
 
@@ -31,6 +34,22 @@ public class ContoCorrenteServiceImpl implements ContoCorrenteService {
 
     @Autowired
     private Utility4Conto utilityConto;
+
+    private static double calcolaMora(Double vecchioSaldo, Double newSaldo){ 
+
+        double mora = 0;
+
+        if(newSaldo < vecchioSaldo){ 
+            
+            mora = Math.abs(newSaldo) * MORA_PERCENTUALE;
+        }
+
+        if(newSaldo > vecchioSaldo){ 
+
+            mora = (newSaldo - Math.abs(vecchioSaldo))*MORA_PERCENTUALE;
+        }
+        return mora;
+    }
 
     @Override
     public ContoCorrenteDTO apriConto(DatiAperturaContoDTO dto) {
@@ -83,40 +102,70 @@ public class ContoCorrenteServiceImpl implements ContoCorrenteService {
 
     @Override
     public ContoCorrenteDTO modificaSaldo(Integer numeroConto, Double newSaldo, Integer idUtenteOperatore) {
+        
+        Optional<ContoCorrente> optionalCC = daoContoCorrente.findById(numeroConto);
+        Optional<Utente> optionalUtente = daoUtente.findById(idUtenteOperatore);
 
-        if(newSaldo < 0){
-            throw new RuntimeException("Il nuovo saldo non può essere negativo!");
+        if(optionalCC.isEmpty()){ 
+            throw new RuntimeException("Il conto non esiste!");
         }
 
-        ContoCorrente cc = daoContoCorrente.findById(numeroConto).get();
-
-        if(cc == null){
-            throw new RuntimeException("Il conto corrente non esiste nel db!");
+        if(optionalUtente.isEmpty()){ 
+            throw new RuntimeException("L'utente non esiste!");
         }
 
-        Utente operatore = daoUtente.findById(idUtenteOperatore).get();
+        ContoCorrente cc = optionalCC.get();
+        Utente utenteOperatore = optionalUtente.get();
 
-        if(operatore == null){
-            throw new RuntimeException("L'utente non esiste");
+        if(cc.getProprietari().containsValue(utenteOperatore) == false){ 
+            throw new RuntimeException("L'utente non è tra i proprietari del conto!");
         }
 
-        if(utilityConto.proprietarioCC(cc, idUtenteOperatore) == false){
-            throw new RuntimeException("Proprietario e id utente non coincidono");
+        double saldoVecchio = cc.getSaldo();
+
+        if(saldoVecchio == newSaldo){ 
+            return utilityConto.daContoCorrenteAContoCorrenteDTO(cc);
         }
 
-        cc.setSaldo(newSaldo);
+        TipoMovimento tipo = TipoMovimento.VERSAMENTO;
+
+        if(newSaldo < saldoVecchio){ 
+
+            tipo = TipoMovimento.PRELIEVO;
+        }
+
+        double mora = calcolaMora(saldoVecchio, newSaldo);
+        double differenza = Math.abs(saldoVecchio-newSaldo);
 
         Movimento movimento = new Movimento();
-
-        movimento.setImporto(newSaldo);
-        movimento.setOperatore(operatore);
-        movimento.setTipo(TipoMovimento.VERSAMENTO);
+        
+        movimento.setOperatore(utenteOperatore);
+        movimento.setTipo(tipo);
+        movimento.setImporto(differenza);
         movimento.setDataOperazione(LocalDate.now());
-        movimentoDAO.save(movimento);
+
+        newSaldo = newSaldo - mora;
+
+        if(newSaldo < LIMITE_MINIMO){ 
+            throw new RuntimeException("Il conto è sotto il limite minimo");
+        }
+
+        Movimento movimentoMora = new Movimento();
+
+        movimentoMora.setOperatore(utenteOperatore);
+        movimentoMora.setTipo(TipoMovimento.PRELIEVO);
+        movimentoMora.setImporto(mora);
+        movimentoMora.setDataOperazione(LocalDate.now());
+
 
         cc.addMovimento(movimento);
-        daoContoCorrente.save(cc);
+        cc.addMovimento(movimentoMora);
+        cc.setSaldo(newSaldo);
 
+        movimentoDAO.save(movimento);
+        movimentoDAO.save(movimentoMora);
+        daoContoCorrente.save(cc);
+        
         return utilityConto.daContoCorrenteAContoCorrenteDTO(cc);
     }
 
@@ -152,5 +201,14 @@ public class ContoCorrenteServiceImpl implements ContoCorrenteService {
         contoCancellato.getProprietari().clear();
         
         daoContoCorrente.deleteById(numeroConto);
+    }
+
+    @Override
+    public String validitaConto(Integer numeroConto) {
+        
+        
+
+
+        return null;
     }
 }

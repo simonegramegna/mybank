@@ -7,7 +7,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
 
 @Entity
 public class Utente {
@@ -85,11 +84,33 @@ public class Utente {
 		this.telefono = telefono;
 	}
 
-	
-
 	@Override
 	public String toString() {
 		return "Utente [idUtente=" + idUtente + ", nome=" + nome + ", cognome=" + cognome + ", mail=" + mail
 				+ ", telefono=" + telefono + ", residenza=" + residenza + "]";
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + idUtente;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Utente other = (Utente) obj;
+		if (idUtente != other.idUtente)
+			return false;
+		return true;
+	}
+
+	
 }

@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -26,11 +27,11 @@ public class ContoCorrente {
 	private double saldo;
 	private LocalDate dataApertura;
 	
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "proprietari_conto", joinColumns = @JoinColumn(name="fk_conto"), inverseJoinColumns = @JoinColumn(name="fk_utente"))
 	private Map<Boolean, Utente> proprietari = new HashMap<Boolean, Utente>();
 
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "movimenti_conto", joinColumns =  @JoinColumn(name="fk_conto"), inverseJoinColumns = @JoinColumn(name="fk_movimenti"))
 	private List<Movimento> movimenti = new ArrayList<Movimento>();
 	
